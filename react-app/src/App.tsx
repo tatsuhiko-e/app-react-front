@@ -11,6 +11,8 @@ const passCheckLists: {id: number, label: string, checked: boolean}[] = [
 
 function App() {
   const [passwordText, setPasswordText] = useState("");
+  const [emailText, setEmailText] = useState("");
+  const [confirmPasswordText, setConfirmPasswordText] = useState("");
 
   const Container = styled.section`
     display: flex;
@@ -19,9 +21,9 @@ function App() {
   `
 
   const Box = styled.section`
-  width: 400px;
-  height: 600px;
-  border: solid;
+    width: 400px;
+    height: 600px;
+    border: solid;
   `
 
   const ChangePassCheck = (e: any) => {
@@ -40,26 +42,38 @@ function App() {
     }
   }
 
+  const ChangeConfimPassCheck = (e: any) => {
+    setConfirmPasswordText(() => e.target.value)
+    if (passwordText == e.target.value) {
+      console.log("asdfasdfaf")
+    }
+
+  }
+
+  const ChangeEmailCheck = (e: any) => {
+    setEmailText(() => e.target.value)
+  }
+
   return (
     <div className="App" style={{display: "flex", flexFlow: "column"}}>
-      <Container>
-      <Box>
-        <Input value={passwordText} onChange={ChangePassCheck} placeholder={"email"} />
+
+
+        <Input value={emailText} onChange={ChangeEmailCheck} placeholder={"email"} />
         <Input value={passwordText} onChange={ChangePassCheck} placeholder={"password"} />
         {passCheckLists.map((list) =>
           <label htmlFor="mycheckbox" style={{display: "flex"}}>
             <input
-              checked={list.checked}
+              defaultChecked={list.checked}
               name="mycheckbox"
               type="checkbox"
             />
             {list.label}
           </label>
         )}
-        <Input value={passwordText} onChange={ChangePassCheck} placeholder={"Confirm Password"} />
+        <Input value={confirmPasswordText} onChange={ChangeConfimPassCheck} placeholder={"Confirm Password"} />
         <Button onClick={() => console.log("Hello")}>{"text"}</Button>
-      </Box>
-      </Container>
+
+ 
     </div>
   );
 }

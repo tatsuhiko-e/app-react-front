@@ -20,6 +20,7 @@ const BlueButton = styled.button`
   height: 48px;
   width: 80%;
   min-width: 100px;
+  margin: auto;
 `;
 
 const RedButton = styled.button`

@@ -26,8 +26,8 @@ const Input: React.FC<Buttonstyle> = ({ onChange, placeholder, value }) => {
 
   return (
     <>
-    <BaseInput  onChange={onChange} placeholder={placeholder} />
-    </> 
+      <BaseInput value={value}  onChange={onChange} placeholder={placeholder} />
+    </>
   )
 };
 

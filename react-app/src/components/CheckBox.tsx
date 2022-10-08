@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, FC } from "react"
 
+type checBoxType = {
+  lists:any
+}
 
-const PassCheckFrom = () => {
+const CheckBox = (props: checBoxType) => {
   return (
     <>
+      {props.lists.map((list:any) =>
+        <input type={"checkbox"} checked={list.checked} />
+      )}
     </>
   )
 }
 
-export default PassCheckFrom
+export default CheckBox

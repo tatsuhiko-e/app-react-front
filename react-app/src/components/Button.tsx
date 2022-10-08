@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 interface Buttonstyle {
-  onClick: () => void,
+  onClick?: () => void,
   children?: string
+  type?: "submit" | "button" | "reset",
+  disabled?: boolean
 }
 
 const BlueButton = styled.button`
+  display: block;
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size: 24px;
@@ -41,8 +44,8 @@ const RedButton = styled.button`
 
 
 
-const Button: React.FC<Buttonstyle> = ({ onClick, children }) => {
-  return <BlueButton onClick={onClick}>{children}</BlueButton>;
+const Button: React.FC<Buttonstyle> = ({ onClick, children, disabled, type }) => {
+  return <BlueButton disabled={disabled} onClick={onClick} type="submit">{children}</BlueButton>;
 };
 
 export default Button;

@@ -1,12 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components'
-import Input from '../components/From';
-import Button from '../components/Button';
+import SignInput from '../components/from';
+import Button from '../components/submitButton';
 import { Controller, useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import IconButton from '../components/IconButton';
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
+import SubmitButton from '../components/submitButton';
+import { type } from 'os';
 
 
 const passCheckLists: { id: number, label: string, checked: boolean }[] = [
@@ -24,13 +26,11 @@ export const SignUpPage = () => {
     formState: { errors }
   } = useForm();
 
+  const navigate = useNavigate()
+
   const watchEmailField = watch("email")
   const watchPassField = watch("password")
   const watchConfPassField = watch("confirmPassword")
-
-  const [passwordText, setPasswordText] = useState("");
-  const [emailText, setEmailText] = useState("");
-  const [confirmPasswordText, setConfirmPasswordText] = useState("");
 
   const Container = styled.section`
     display: flex;
@@ -66,32 +66,32 @@ export const SignUpPage = () => {
               textAlign: "center",
               fontFamily: "Noto Sans JP",
               fontSize: "40px"
-            }}>IMEMO</h1>
+            }}><Link to="/Home">よさこいミュージック（仮）</Link></h1>
             <Controller
               control={control}
               name="email"
               render={({ field: { onChange, value } }) => (
-                <Input onChange={onChange} value={value} placeholder={"email"} />
+                <SignInput onChange={onChange} value={value} placeholder={"email"} />
               )}
             />
             <Controller
               control={control}
               name="password"
               render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <Input onChange={onChange} value={value} placeholder={"password"} error={error} />
+                <SignInput  type={"password"} onChange={onChange} value={value} placeholder={"password"} error={error} />
               )}
             />
             <Controller
               control={control}
               name="confirmPassword"
               render={({ field: { onChange, value } }) => (
-                <Input onChange={onChange} value={value} placeholder={"confirm password"} />
+                <SignInput type={"password"} onChange={onChange} value={value} placeholder={"confirm password"} />
               )}
             />
-            <Button type="submit" children='sign up' />
-            <div style={{textAlign: "center", marginTop: "4px"}}>会員登録されている方は<Link to="/login">こちら</Link>へ</div>
+            <SubmitButton type={"submit"} children='sign up' />
+            <div style={{textAlign: "center", marginTop: "8px"}}>会員登録されている方は<Link to="/login">こちら</Link>へ</div>
             <hr style={{width: "90%", marginTop: "32px", marginBottom: "32px"}} />
-            <IconButton icon={faTwitter}>Twitterで会員登録</IconButton>
+            <SubmitButton onClick={() => navigate('/Login')} changeColor={true} type={"button"} children='チームアカウントはこちら' />
           </form>
         </div>
       </div>

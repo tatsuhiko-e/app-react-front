@@ -6,7 +6,8 @@ interface Buttonstyle {
   placeholder?: string,
   value?: string,
   name?: string,
-  error?: any
+  error?: any,
+  type?: string
 }
 
 const BaseInput = styled.input`
@@ -26,12 +27,12 @@ const BaseInput = styled.input`
   margin-bottom: 32px;
 `;
 
-const Input: React.FC<Buttonstyle> = ({ onChange, placeholder, value }) => {
+const SignInput: React.FC<Buttonstyle> = ({ onChange, placeholder, value, type }) => {
   return (
     <>
-      <BaseInput value={value}  onChange={onChange} placeholder={placeholder} />
+      <BaseInput type={type} value={value}  onChange={onChange} placeholder={placeholder} />
     </>
   )
 };
 
-export default Input;
+export default SignInput;

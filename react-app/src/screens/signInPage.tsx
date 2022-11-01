@@ -1,13 +1,20 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { Home } from './homePage';
 import styled from 'styled-components'
 import SignInput from '../components/from';
 import { Controller, useForm } from "react-hook-form";
-import { Link, Navigate, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import SubmitButton from '../components/submitButton';
+import { SignInParams } from '../interfaces';
+import { signIn } from '../lib/api/auth';
+import Cookies from 'js-cookie';
+import { AuthContext } from '../App';
 
 export const SignInPage = () => {
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+  const navigate = useNavigate()
   const {
     setValue,
     watch,
@@ -20,7 +27,7 @@ export const SignInPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location)  
+    console.log(location)
   },[location]);
 
   const Container = styled.section`
@@ -29,9 +36,32 @@ export const SignInPage = () => {
     align-items: center;
   `
 
-  const onSubmit = (data: {}) => {
-    console.log(data)
+const onSubmit = async (data: any) => {
+  try {
+    const res: any = await signIn(data)
+
+
+    if (res.status === 200) {
+      console.log(res.headers["access-token"])
+      // ログインに成功した場合はCookieに各値を格納
+      Cookies.set("_access_token", res.headers["access-token"])
+      Cookies.set("_client", res.headers["client"])
+      Cookies.set("_uid", res.headers["uid"])
+
+      setIsSignedIn(true)
+      setCurrentUser(res.data.data)
+
+      navigate("/dashboard")
+
+      console.log("Signed in successfully!")
+    } else {
+      setAlertMessageOpen(true)
+    }
+  } catch (err) {
+    console.log(err)
+    setAlertMessageOpen(true)
   }
+}
 
   return (
     <>
@@ -41,7 +71,7 @@ export const SignInPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "radial-gradient(#90c2ff, #9841e4)"
+        background: "#dddddd",
       }}>
         <div style={{
           width: "64%",
@@ -73,7 +103,7 @@ export const SignInPage = () => {
               )}
             />
             <SubmitButton type={"submit"} children='sign in' />
-            <div style={{ textAlign: "center", marginTop: "8px" }}>会員登録されている方は<Link to="/SignUp">こちら</Link>へ</div>
+            <div style={{ textAlign: "center", marginTop: "8px" }}>会員登録されていない方は<Link to="/SignUp">こちら</Link>へ</div>
             <hr style={{ width: "90%", marginTop: "32px", marginBottom: "32px" }} />
             <SubmitButton changeColor={true} type={"button"} children='チームアカウントはこちら' />
           </form>

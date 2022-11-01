@@ -50,7 +50,7 @@ export const SignUpPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "radial-gradient(#90c2ff, #9841e4)"
+        background: "#dddddd"
       }}>
         <div style={{
           width: "64%",

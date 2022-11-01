@@ -36,7 +36,9 @@ const DefaultTextareaStyle = styled(TextArea)`
   border-radius: 8px;
 `
 
-const DefaultForm: React.FC<DefaultFormType> = ({ onChange, value, type, label }) => {
+
+
+const DefaultForm: React.FC<DefaultFormType> = ({ onChange, value, type, label}) => {
   return (
     <div>
       <FormLabel>{label}</FormLabel>

@@ -17,7 +17,7 @@ export interface User {
   uid: string
   provider: string
   email: string
-  name: string
+  team_name: string
   nickname?: string
   image?: string
   allowPasswordChange: boolean

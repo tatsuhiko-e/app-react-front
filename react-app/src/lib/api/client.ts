@@ -1,5 +1,6 @@
 import applyCaseMiddleware from "axios-case-converter"
 import axios from "axios"
+import Cookies from "js-cookie";
 
 // applyCaseMiddleware:
 // axiosで受け取ったレスポンスの値をスネークケース→キャメルケースに変換
@@ -7,7 +8,7 @@ import axios from "axios"
 
 // ヘッダーに関してはケバブケースのままで良いので適用を無視するオプションを追加
 const options = {
-  ignoreHeaders: true 
+  ignoreHeaders: true
 }
 
 const client = applyCaseMiddleware(axios.create({

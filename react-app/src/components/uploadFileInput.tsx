@@ -8,7 +8,9 @@ interface Buttonstyle {
   onClick?: () => void,
   type?: "input",
   disabled?: boolean,
-  changeColor?: boolean
+  changeColor?: boolean,
+  value?: any,
+  onChange?: any,
 }
 
 const Label = styled.div`
@@ -21,11 +23,13 @@ const Inputstyle = styled(Input)`
   margin-top: 14px;
 `
 
-const UploadButton: React.FC<Buttonstyle> = () => {
+const UploadButton: React.FC<Buttonstyle> = (value, onChange) => {
   return (
-    <div style={{display: "flex" }}>
-      <IconButton color="primary" aria-label="upload" component="label" style={{marginTop:"4px"}}>
-        <input hidden accept="image/*" type="file" />
+    <div style={{ display: "flex" }}>
+      <IconButton color="primary" aria-label="upload" component="label" style={{ marginTop: "4px" }}>
+        <input hidden onChange={onChange} name="file"
+          type="file"
+          accept="image/*" />
         <AudiotrackIcon />
         <Label>アップロード</Label>
       </IconButton>
